@@ -7,6 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 import pandas as pd
 import glob
 from sklearn.preprocessing import MultiLabelBinarizer, OneHotEncoder, MinMaxScaler
+from sklearn.metrics import confusion_matrix
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -20,9 +21,18 @@ class MultiCSVDatasetAnomaly(Dataset):
         data = pd.concat(dataframes, ignore_index=True)
         data = data.fillna(0)
 
-        # Remove malware_name (not needed for AE)
         if "malware_name" in data.columns:
-            data = data.drop(columns=["malware_name"])
+        	labels = data["malware_name"].astype(str).apply(lambda s: 0 if s in ["", "0", "nan", "None"] else 1).astype(int).values
+        	# remove metadata columns used as labels so they are not treated as features
+        	data = data.drop(columns=["malware_name"])
+        elif any(c in data.columns for c in ["anti_forensic", "anti_debugging", "anti_sandbox", "persistence"]):
+        	flag_cols = [c for c in ["anti_forensic", "anti_debugging", "anti_sandbox", "persistence"] if c in data.columns]
+        	labels = (data[flag_cols].astype(float).sum(axis=1) > 0).astype(int).values
+        	data = data.drop(columns=flag_cols)
+        else:
+        	labels = None
+
+        self.y = torch.tensor(labels, dtype=torch.long) if labels is not None else None
 
         # Scale numeric features
         numeric_cols = data.select_dtypes(include=np.number).columns
@@ -51,6 +61,8 @@ class MultiCSVDatasetAnomaly(Dataset):
                 X_list.append(pd.DataFrame(transformed, columns=new_cols))
 
         self.X = torch.tensor(pd.concat(X_list, axis=1).values, dtype=torch.float32)
+        if not hasattr(self, "y"):
+        	self.y = None
 
     def __len__(self):
         return len(self.X)
@@ -122,6 +134,16 @@ print(f"Anomaly threshold: {float(threshold)}")
 
 anomaly_mask = errors > threshold
 anomaly_indices = np.where(anomaly_mask.numpy())[0]
+
+# Compute FNR/FPR
+y_pred = (errors > threshold).cpu().numpy().astype(int)
+
+tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0,1]).ravel()
+
+fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
+fnr = fn / (fn + tp) if (fn + tp) > 0 else 0.0
+print(f"False Positive Rate: {fpr}")
+print(f"False Negative Rate: {fnr}")
 
 # Results
 print("ANOMALY DETECTION RESULTS")
