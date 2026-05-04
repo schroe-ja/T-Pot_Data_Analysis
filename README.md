@@ -2,10 +2,9 @@
 
 For some scripts it is neccessary to download the URLhaus and Malware Bazaar FULL CSV database files.
 
-# Citing
-
-If you use this repo or the dataset in your publication, please cite our work.
-
+## BibTeX entry
+Please cite this project using the following bibtex entry: <br>
+[![Generic badge](https://img.shields.io/badge/Peer%20Reviewed-No-red.svg)](https://shields.io/)
 ```bibtex
-@inproceeding{}
+@inproceedings{}
 ```
