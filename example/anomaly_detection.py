@@ -10,6 +10,8 @@ from sklearn.preprocessing import MultiLabelBinarizer, OneHotEncoder, MinMaxScal
 from sklearn.metrics import confusion_matrix
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.decomposition import TruncatedSVD
+from scipy.sparse import hstack
 
 class MultiCSVDatasetAnomaly(Dataset):
     def __init__(self, folder_path, multilabel_columns=None):
@@ -55,12 +57,17 @@ class MultiCSVDatasetAnomaly(Dataset):
 
             else:
                 values = data[col].astype(str)
-                ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+                ohe = OneHotEncoder(sparse_output=True, handle_unknown='ignore')
                 transformed = ohe.fit_transform(values.values.reshape(-1, 1))
-                new_cols = [f"{col}_{c}" for c in ohe.categories_[0]]
-                X_list.append(pd.DataFrame(transformed, columns=new_cols))
+                #new_cols = [f"{col}_{c}" for c in ohe.categories_[0]]
+                #X_list.append(pd.DataFrame(transformed, columns=new_cols))
+                X_list.append(transformed)
+        
+        X = hstack(X_list)
+        X = X.astype(np.float32)
+        X_reduced = TruncatedSVD(n_components=200).fit_transform(X)
 
-        self.X = torch.tensor(pd.concat(X_list, axis=1).values, dtype=torch.float32)
+        self.X = torch.tensor(X_reduced, dtype=torch.float32)
         if not hasattr(self, "y"):
         	self.y = None
 
@@ -94,16 +101,22 @@ class MalwareAutoencoder(nn.Module):
         z = self.encoder(x)
         return self.decoder(z)
 
-dataset = MultiCSVDatasetAnomaly(
-    folder_path="test_data",
+benign_dataset = MultiCSVDatasetAnomaly(
+    folder_path="benign_dataset",
     multilabel_columns=["tags", "anti_forensic", "anti_debugging", "anti_sandbox", "persistence"]
 )
 
-print(f"Loaded dataset with {dataset.X.shape[0]} samples and {dataset.X.shape[1]} features")
+malicious_dataset = MultiCSVDatasetAnomaly(
+    folder_path="malicious_dataset",
+    multilabel_columns=["tags", "anti_forensic", "anti_debugging", "anti_sandbox", "persistence"]
+)
 
-loader = DataLoader(dataset, batch_size=64, shuffle=True)
+print(f"Benign samples: {benign_dataset.X.shape[0]} features: {benign_dataset.X.shape[1]}")
+print(f"Malicious samples: {malicious_dataset.X.shape[0]} features: {malicious_dataset.X.shape[1]}")
 
-input_size = dataset.X.shape[1]
+loader = DataLoader(benign_dataset, batch_size=64, shuffle=True)
+
+input_size = benign_dataset.X.shape[1]
 model = MalwareAutoencoder(input_size)
 
 criterion = nn.MSELoss()
@@ -124,19 +137,42 @@ for epoch in range(epochs):
 
     print(f"Epoch {epoch+1}/{epochs} | Loss: {epoch_loss/len(loader):.6f}")
 
+test_X = torch.cat([
+    benign_dataset.X,
+    malicious_dataset.X
+], dim=0)
+
+test_y = torch.cat([
+    torch.zeros(len(benign_dataset)),
+    torch.ones(len(malicious_dataset))
+], dim=0)
+
+benign_size = len(benign_dataset)
+malicious_size = len(malicious_dataset)
+
 model.eval()
 with torch.no_grad():
-    reconstructed = model(dataset.X)
-    errors = torch.mean((reconstructed - dataset.X)**2, dim=1)
+    reconstructed = model(test_X)
+    errors = torch.mean((reconstructed - test_X)**2, dim=1)
 
 threshold = errors.mean() + 2 * errors.std()
 print(f"Anomaly threshold: {float(threshold)}")
+
+benign_errors = errors[:benign_size]
+malicious_errors = errors[benign_size:]
+
+benign_pred = benign_errors > threshold
+malicious_pred = malicious_errors > threshold
 
 anomaly_mask = errors > threshold
 anomaly_indices = np.where(anomaly_mask.numpy())[0]
 
 # Compute FNR/FPR
 y_pred = (errors > threshold).cpu().numpy().astype(int)
+y_true = torch.cat([
+    torch.zeros(len(benign_dataset)),
+    torch.ones(len(malicious_dataset))
+], dim=0).numpy()
 
 tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0,1]).ravel()
 
@@ -144,6 +180,27 @@ fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
 fnr = fn / (fn + tp) if (fn + tp) > 0 else 0.0
 print(f"False Positive Rate: {fpr}")
 print(f"False Negative Rate: {fnr}")
+
+fp = benign_pred.sum().item()
+tn = benign_size - fp
+
+fpr_benign = fp / benign_size
+
+print("\n--- BENIGN RESULTS ---")
+print(f"Total benign samples: {benign_size}")
+print(f"False positives: {fp}")
+print(f"False Positive Rate: {fpr_benign}")
+
+fn = (malicious_pred == 0).sum().item()
+tp = (malicious_pred == 1).sum().item()
+
+fnr_malicious = fn / malicious_size
+
+print("\n--- MALICIOUS RESULTS ---")
+print(f"Total malicious samples: {malicious_size}")
+print(f"Detected (TP): {tp}")
+print(f"Missed (FN): {fn}")
+print(f"False Negative Rate: {fnr_malicious}")
 
 # Results
 print("ANOMALY DETECTION RESULTS")

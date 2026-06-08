@@ -1,0 +1,50 @@
+filename,count,file_type,malware_name,cpu_arch,c2_ports,linkage,anti_forensic,anti_debugging,anti_sandbox,obfuscation[Size(Bytes),Strings,Strings per kB,Entropy],persistence,label
+c7b68ac37f364473e922936708e7f43c293dd07b295171566c07ff5fe024fab9,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,199576,986,5059,5.3425,BENIGN
+77af778b51abd4a3c51c5ddd97204a9c3ae614ebccb75a606c3b6865aed6744e,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,68088,277,41659,4.2604,BENIGN
+faefbbbf05cb9cfb18112dde743b3eb327b5b26426f4206583a2fb4cb9cc344d,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,198960,1145,5893,6.2879,BENIGN
+e6640de835ad09fb0a7367ee2e0ba99d0142c139db0272146e35538bd07479fc,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,265720,1231,47439,5.8236,BENIGN
+0feef98ed807f72fe287f71ed82369c76d1d81825b8c0131dc21c41260b82d8d,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,68056,336,50556,4.6991,BENIGN
+37d2b12d5d9abc2a364ef9448767ee03938e383c0284193477dc7618f4b7c6c2,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,1412096,6830,49529,6.105,BENIGN
+af9d2c92ddc38ca77b3cd29e944c9b61928032808d3a3cb6c3a3c8965067291e,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,199256,552,28368,4.486,BENIGN
+5f53b0a2be22e28dc4b056f663910c046a33f9b2d779eaf997ea771fe1881a13,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,134624,677,51495,5.8388,BENIGN
+427e4b79b1f0fc90306cbe064b1297b21dc6835bfa656d3bf46bc156e3f24bb0,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,330080,3058,94868,6.419,BENIGN
+570e342d0e4708dab94b2025f6b928845b659b405872d824b45473c4635d7b1d,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,478376,2387,51096,6.3679,BENIGN
+7f5a55cf3f88be936fb9440249cb449f3067ccee4b525d0027dc9278a29c32c1,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,1051744,4406,42898,6.03,BENIGN
+a4a6172074384f943a78b96c7018ed9776cc3ab005ea58b20111288b8b72fe62,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,264768,1105,42736,5.6852,BENIGN
+24e5e1c2bbef565360c392851175f46821fc21d6725503a600353625b4c9209c,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,335168,1585,48425,5.7206,BENIGN
+5009a047a11fbd680bb40d2f23cd3fcd626ac2d672c38e16f53bd622c3961534,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,67832,153,23097,1.194,BENIGN
+7c81d9b601bc4d2ac702a75821dae25d92432341d98f14e2a453dbc6cbeeaacb,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,396184,2011,51977,5.4804,BENIGN
+ff4b294dcb57179cad146355dcfdca5fb7f516963b73f25f09171ec6d2fb0954,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,331504,2146,66289,5.6922,BENIGN
+e0031c189e34e10d9c202fa8d75f72d3296a239164fe6b07e7dc206c7b723d98,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,133584,1211,9283,5.6671,BENIGN
+8b51ac5ca03b0a599e3951a7825c5e6028b62a6c82c9565b3d6a3660d2c7fd00,1,ELF 64-bit LSB PIE executable,,ARM aarch64,,dynamic,,,,592664,2128,36767,5.5844,BENIGN
+951d02b5e67e3ae43e00f90d0b930f06bc7b33488058fe0c0b6eea942251a1ac,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,22468,195,88873,5.8627,BENIGN
+5f38bddd9eedeef8f693f1b17d2fadff0234f9203b91f4b0b9245c7e4fb64e25,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,616960,4190,69544,6.2627,BENIGN
+49a38dd5517bad4b13fc7aa2e5040a64b3137c2d22e15c03f6b97de0f536fcee,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,7308,89,124707,5.2742,BENIGN
+6e95aa1cd820e83bc7c15be4041a690c3fc40b4eb5de545f56fef9466d56bcee,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,172352,1191,70761,6.3592,BENIGN
+214303a05af0b47a5960ee3ecf6136ca4198e7239111793007ecd704af28815c,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,552560,4222,78242,6.2417,BENIGN
+aff0b25eed4c3b80649a82c128ad4896ecce22cdcc024b0eb3aa72d5c6faceb9,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,88460,566,65519,6.3088,BENIGN
+47a78aabffe50907e8d0a3766ab0d3403f614bb53993545ca5a5dd1ae964be64,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,565144,2759,49991,6.575,BENIGN
+e6372e347f75315880a5068a3d1a02c337819d52c9811d8b8c51761fd47d28f3,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,760620,2427,32674,6.5097,BENIGN
+c9a1408eecc2d7b946f4a219ee8340b794dce53324ed437150f16ba699edea04,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,5864,65,113506,5.0792,BENIGN
+8705f52002e0500b7ae62b14f2717214ade1b175bea1f1c313356c13b269863d,1,ELF 32-bit LSB executable,,ARM,,dynamically linked,,,,206360,1297,6436,6.4877,BENIGN
+8abc5c931beb248d911a8dac654150574534ea6f76e8b42570738aa71b342ffb,1,ESP32 app image / firmware partition,,ESP32 / Xtensa,443,,,,,2031616,18783,94672,6.1436,BENIGN
+ea40ecec0b30982fbb1662e67f97f0e9d6f43d2d587f2f588525fae683abea73,242,ELF,XorDDoS,x86_32,"None",static,"removing_binary_after_execution, removing_logs_configs_ssh","None","Reading /proc/ directory, Process enumeration, Checked start-up services, Checked scheduled jobs","562240,1665,3.03,6.198","cronjob, init_daemon, configuration_files",MALICIOUS
+57b0ede720a32dc5a2f80f4c9befbd1d6c2c6f88146ff64ea4fac600276546ea,2,ELF,XorDDoS,x86_32,"None",static,"None","None","Reading /proc/ directory, Process enumeration, Checked start-up services, Checked scheduled jobs","487424,1144,2.4,6.261","cronjob, init_daemon, configuration_files",MALICIOUS
+c0dfbe27877c54e2e546908d518a9a1683ed597871ebbdd4b692bda27ad50923,2,ELF,Prometei,x86_64,"None",static,"firewall_changes","None","Reading /proc/ directory, Process enumeration","428387,6624,15.83,7.942","init_daemon, configuration_files",MALICIOUS
+c512cad695fc027f3d3df46159a1f1b43d7641c37d6ade44870c052e36496bae,2,ELF,Prometei,x86_64,"53",static,"removing_binary_after_execution, removing_logs_configs_ssh, firewall_changes","None","Reading /proc/ directory, Process enumeration, QEMU aliases","1771244,24749,14.31,7.94","init_daemon, configuration_files",MALICIOUS
+4875202f19d0c5aea20a3b74cf7ed82312cfd45033b28fe67f7648462bc1dce0,2,ELF,Hajime,MIPS,"None",static,"None","None","None","476,2,3.54,3.096","None",MALICIOUS
+aceb412f63d92297d9c6474c4d9b07041b1a189f865b15f2fd2205143406eded,2,ELF,Hajime,MIPS,"None",static,"None","None","None","476,2,3.54,3.075","None",MALICIOUS
+416b6156e8591dfef21e7eef0f48f52e792b8d726480dafa582c642154d6cc32,2,ELF,Prometei,x86_64,"None",static,"firewall_change","None","Reading /proc/ directory, Process enumeration","428387,6624,15.83,7.942","init_daemon, configuration_files",MALICIOUS
+0a6ef3bb551cbf4aa99fe9c99ade7486067771c08f15991e1776ed84186595d6,2,ELF,Prometei,x86_64,"53",static,"removing_binary_after_execution, removing_logs_configs_ssh, firewall_changes","None","Process enumeration, QEMU aliases","1740000,24117,14.19,7.941","configuration_files",MALICIOUS
+c19547b3e046eabcb3ca2d653fede47136f7f5fc31e614a368a3448bcd65fd37,2,ELF,Hajime,MIPS,"None",static,"None","None","None","476,2,3.54,3.093","None",MALICIOUS
+7ec8c1889bb4b3edb2f05096178beb72ece656679d7367b0a305c2c7416fe1b4,1,ELF,Hajime,MIPS,"None",static,"None","None","None","480,6,10.55,3.949","None",MALICIOUS
+04c215798470ae106566b7ad4deec123110f71cd8b58b5f15b91d82d3cd94baf,1,ELF,Hajime,MIPS,"None",static,"None","None","None","476,2,3.54,3.087","None",MALICIOUS
+020f1fa6072108c79ed6f553f4f8b08e157bf17f9c260a76353300230fed09f0,21,ELF,Hajime,MIPS,"None",static,"None","None","Process enumeration","85232,1007,12.08,7.979","cronjob, init_daemon, configuration_files",MALICIOUS
+12013662c71da69de977c04cd7021f13a70cf7bed4ca6c82acbc100464d4b0ef,20,ELF,Mozi,ARM,"22,23,2323,53,80,8080,5555,7547,37215,1900,123",static,"removing_binary_after_execution, removing_logs_configs_ssh, firewall_changes","None","Reading /proc/ directory, Process enumeration, Checked start-up services, Checked scheduled jobs, Reading /sys/devices/system/","1131,3.76,5.82","cronjob, init_daemon, configuration_files",MALICIOUS
+f6c97b1e2ed02578ca1066c8235ba4f991e645f89012406c639dbccc6582eec8,15,ELF,Mirai,MIPS,"23,53,80",static,"removing_logs_configs_ssh","None","Reading /proc/ directory, Process enumeration, Checked scheduled jobs","137480,2163,16.1,7.813","cronjob, init_daemon, configuration_files",MALICIOUS
+d5601202dff3017db238145ff21857415f663031aca9b3d534bec8991b12179a,4,ELF,Hajime,MIPS,"None",static,"None","None","None","85128,995,11.95,7.981","None",MALICIOUS
+a430ed516a8a596570bc3a496b99cf6c7dd0a69ae0614ab2d2de6e9a8a6c2fc8,2,ELF,Pink,MIPS,"None",static,"removing_binary_after_execution, removing_logs_configs_ssh, firewall_changes","None","Reading /proc/ directory, Process enumeration, Reading /sys/devices/system/","610960,2595,4.35,5.305","init_daemon, configuration_files",MALICIOUS
+4293c1d8574dc87c58360d6bac3daa182f64f7785c9d41da5e0741d2b1817fc7,13,ELF,Mozi,MIPS,"23,53,80",static,"None","None","Reading /proc/ directory, Process enumeration, Checked scheduled jobs","135784,2071,15.61,7.815","cronjob, init_daemon, configuration_files",MALICIOUS
+b5cf68c7cb5bb2d21d60bf6654926f61566d95bfd7c9f9e182d032f1da5b4605,4,ELF,Mozi,MIPS,"23,53,80",static,"removing_logs_configs_ssh","None","Reading /proc/ directory, Process enumeration, Checked scheduled jobs","135472,2032,15.35,7.814","cronjob, init_daemon, configuration_files",MALICIOUS
+a04ac6d98ad989312783d4fe3456c53730b212c79a426fb215708b6c6daa3de3,12,ELF,Hajime,ARM,"None",static,"None","None","Process enumeration","80280,995,12.68,7.991","None",MALICIOUS
+e15e93db3ce3a8a22adb4b18e0e37b93f39c495e4a97008f9b1a9a42e1fac2b0,1,ELF,Gafgyt,ARM,"None",static,"removing_logs_configs_ssh, firewall_changes","None","Reading /proc/ directory, Process enumeration","1283,13.78,7.762","None",MALICIOUS
