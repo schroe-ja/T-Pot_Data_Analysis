@@ -1,33 +1,33 @@
 # Smart-Home-Sandbox Data Analysis
 
-Dieses Repository enthält den Code und die Daten, die für meine Bachelorarbeit zur Smart-Home-Sandbox relevant sind.
+This repository contains the code and data relevant to the smart home sandbox.
 
-Ziel war es, gutartigen Netzwerkverkehr von echten Smart-Home-Geräten zu erfassen und daraus nachvollziehbare Datensätze für spätere ML-basierte Intrusion Detection zu erstellen.
+The goal was to capture benign network traffic from real smart home devices and use it to create traceable datasets for future ML-based intrusion detection.
 
-## Architektur
+## Architecture
 
 ![Architektur der Smart-Home-Sandbox](docs/architekturdiagramm.png)
 
 ## Setup
 
-Die Sandbox bestand aus realen Smart-Home-Geräten. Der Raspberry Pi 5 war der zentrale Netzwerkknoten und hat den Traffic der Geräte gesammelt.
+The sandbox consisted of real smart-home devices. The Raspberry Pi 5 served as the central network node and collected the devices' traffic.
 
 Genutzt wurden unter anderem:
 
-* Raspberry Pi 5 mit DiyHue
-* Raspberry Pi 4 mit Home Assistant Container und Voice Assistant
-* Sonoff NSPanel Pro
-* Sonoff Motion Sensor
-* Sonoff IP-Kamera
+* Raspberry Pi 5 with DiyHue
+* Raspberry Pi 4 with Home Assistant Container and Voice Assistant
+* Sonoff NSPanel Pro 120
+* Sonoff Motion Sensor SNZB 03
+* Sonoff IP-CCTV
 * Hama WiFi-Plug Mini
 * Philips Hue Bridge
 * Philips Hue Smart Lamp
 * Nokia G20
 * Apple MacBook Air
 
-Home Assistant wurde für Geräteintegration und für Automationen genutzt.
+Home Assistant was used for device integration and automations
 
-## Ordnerstruktur
+## Dataset Structure
 
 ```text
 sandbox
@@ -50,8 +50,8 @@ HomeAssistant_automations
 ├── scenario_hue_lamp
 └── question_time
 
-proof_of_concept
-├── proof_of_concept.ipynb
+baseline_model
+├── baseline_model.ipynb
 ├── results
 └── data
     ├── benign
@@ -70,31 +70,31 @@ proof_of_concept
     	└── data_scenarios
 ```
 
-## `sandbox`
+## `Sandbox`
 
-Hier liegt der Code für die Netzwerkerfassung.
+Source code for network structure.
 
-`network_capture.py` startet den Live-Mitschnitt mit Scapy. Jedes Paket wird an den `FlowTracker` weitergegeben. Beim Stoppen der Aufnahme werden CSV-Dateien geschrieben.
+`network_capture.py` starts the live capture using `scapy`. Each packet is passed to the `FlowTracker`. When the capture is stopped, CSV files are written.
 
-`flow_tracker.py` verarbeitet die Pakete. Die Datei bildet Flows, zählt Pakete und Bytes und sammelt einfache Informationen zu Netzwerkverkehr und Login-Versuchen.
+`flow_tracker.py` processes the packets. The file creates flows, counts packets and bytes, and collects basic information about network traffic and login attempts.
 
-Wichtige Ausgaben sind:
+Important outputs are:
 
 * `network_traffic.csv`
 * `login_attempts.csv`
 * Flow-CSV
 
-## Sandbox-Script starten
+## Starting Sandbox Script
 
 ```bash
 cd sandbox
 sudo python3 main.py -i wlan0 -o data_v1/capture.csv
 ```
 
-`-i wlan0` steht für das Netzwerkinterface, auf dem mitgeschnitten wird
-`-o data_v1/capture.csv` legt fest, wohin die Dateien gespeichert werden.
+`-i wlan0` passed network interface to capture network traffic
+`-o data_v1/capture.csv` output file.
 
-Die Aufnahme läuft, bis sie mit `Ctrl+C` beendet wird. Danach werden die Ergebnisse automatisch gespeichert. Neben der CSV-Dateien für Netzwerkverkehr und Login-Versuche entsteht auch eine zusätzliche Flow-Datei.
+Capturing continues until it is stopped with `Ctrl+C`. Afterward, the results are automatically saved. In addition to the CSV files for network traffic and login attempts, an additional flow file is also created.
 
 ```text
 data_v1/capture.csv
@@ -102,39 +102,35 @@ data_v1/capture_network_traffic.csv
 data_v1/capture_login_attempts.csv
 ```
 
-Optional kann die Aufnahme begrenzt werden.
-
 ```bash
 sudo python3 main.py -i wlan0 -o data_v1/capture.csv -c 10000
 ```
-nimmt maximal 10.000 Pakete auf.
+`-c 10000` captures a maximum of 10000 packets
 
 ```bash
 sudo python3 main.py -i wlan0 -o data_v1/capture.csv -d 3600
 ```
-nimmt eine Stunde lang auf.
+`-d 3600` captures for a maximum of 1h
 
 ## `network_capture.py`
 
-Diese Datei startet die Aufnahme auf einem Netzwerkinterface, zum Beispiel `wlan0`.
+This file starts capturing on a network interface, such as `wlan0`.
 
-Sie macht im Kern drei Dinge:
+Essentially, it does three things:
 
-* Pakete live mit Scapy mitschneiden
-* Pakete an `flow_tracker.py` weitergeben
-* Ergebnisse als CSV speichern
-
-Die Aufnahme wird mit `Ctrl+C` beendet. Danach werden die finalen Dateien geschrieben.
+* Capture packets in real time using Scapy
+* Pass the packets to `flow_tracker.py`
+* Save the results as a CSV file
 
 ## `flow_tracker.py`
 
-Diese Datei wertet die Pakete aus.
+This file analyzes the packets.
 
-Sie erkennt Kommunikationsbeziehungen zwischen Geräten und Zielen. Gleiche Verbindungen werden über `count` zusammengefasst. Daraus entsteht die Datei `network_traffic.csv`.
+It identifies communication relationships between devices and destinations. Identical connections are grouped using `count`. This results in the file `network_traffic.csv`.
 
-Außerdem können einfache Login-Versuche erkannt werden. Passwörter werden nicht im Klartext gespeichert, sondern gehasht.
+It can also detect simple login attempts. Passwords are not stored in plain text but are hashed.
 
-Die erstellten CSV-Strukturen sind:
+The CSV structures created are:
 
 ```text
 network_traffic.csv
@@ -148,7 +144,7 @@ username,password,src_ip,dst_ip,protocol,count,successful
 
 ## `HomeAssistant_automations`
 
-Dieser Ordner enthält die Automationen, die für die Szenarien genutzt wurden.
+This folder contains the automations used for the scenarios.
 
 * `turn_on_socket`
 * `turn_off_socket`
@@ -156,30 +152,30 @@ Dieser Ordner enthält die Automationen, die für die Szenarien genutzt wurden.
 * `question_time`
 
 
-## `proof_of_concept`
+## `Baseline Model`
 
-Das Notebook `proof_of_concept.ipynb` ist ein einfacher Test, ob die erzeugten Daten grundsätzlich für ML-basierte Anomaly Detection nutzbar sind.
+The `proof_of_concept.ipynb` notebook is a simple test to determine whether the generated data can, in principle, be used for ML-based anomaly detection.
 
-Es lädt benigne und malicious Daten, bereitet Features auf, trainiert einen einfachen Autoencoder und speichert die Ergebnisse im Ordner `results`.
+It loads benign and malicious data, preprocesses features, trains a simple autoencoder, and saves the results in the `results` folder.
 
-Starten:
+Starting:
 
 ```bash
-cd proof_of_concept
-jupyter notebook proof_of_concept.ipynb
+cd baseline_model
+jupyter notebook baseline_model.ipynb
 ```
-Die Daten liegen hier:
+Data are stored in the following directories:
 
 ```text
-proof_of_concept/data/benign
-proof_of_concept/data/malicious
+baseline_model/data/benign
+baseline_model/data/malicious
 ```
 
-Der Proof of Concept ist keine vollständige Modellbewertung. Er zeigt nur, ob die Daten grundsätzlich weiterverarbeitet werden können.
+The baseline model is not a comprehensive model evaluation. It merely demonstrates whether the data can, in principle, be processed further.
 
-## Datensätze und Ergebnisse
+## Dataset and Results
 
-Im Repository liegen außerdem die erzeugten CSV-Dateien aus der Sandbox:
+The repository also contains the CSV files generated from the sandbox:
 
 * `network_traffic.csv`
 * `login_attempts.csv`
