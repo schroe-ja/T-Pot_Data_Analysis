@@ -1,9 +1,0 @@
-username:password,protocol,count,successful
-admin@diyhue.org:057ba03d6c44104863dc7361fe4578965d1887360f90a0895882e58a6248fc86,HTTP-Form,70,True
-admin@diyhue.org:983fe31c315e9ed0131186f5ff95ab95bd18f9c25e4358702517c341e622350b,HTTP-Form,2,False
-admin@diyhue.or:057ba03d6c44104863dc7361fe4578965d1887360f90a0895882e58a6248fc86,HTTP-Form,2,False
-admin@diyhue.org:5dd21274a61186175cba3ba7cea1eeef3268bb3d1bf5affb783c0896162754e1,HTTP-Form,1,False
-admin@diyhue.org:6c27fdbf66152f610c971e56267c71e1e777a0ca4c9af0fd7359530f30354e47,HTTP-Form,3,False
-admin@diyhue.org:91aa6189454021d6c966355d382cfe2d7e98912b1d830d84fc9eec69623b3ff9,HTTP-Form,2,False
-pi_hue:ssh_key,ssh,50,True
-pi_hue:ssh_key,ssh,4,False
