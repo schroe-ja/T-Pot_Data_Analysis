@@ -1,4 +1,4 @@
-# Smart-Home-Sandbox Data Analysis
+# Smart-Home-Sandbox Benign Use-Case Secenarios
 
 This repository contains the code and data relevant to the smart home sandbox.
 
