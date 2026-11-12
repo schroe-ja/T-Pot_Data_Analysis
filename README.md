@@ -4,7 +4,7 @@ For some scripts it is neccessary to download the URLhaus and Malware Bazaar FUL
 
 ## Future Work
 
-We want to make a small project which creates new datasets to our current features.
+We want to make a small project which creates new datasets to our current features. Furthermore, we want to add a ground truth dataset.
 
 ## BibTeX entry
 Please cite this project using the following bibtex entry: <br>
