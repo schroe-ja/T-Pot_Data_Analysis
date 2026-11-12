@@ -2,6 +2,10 @@
 
 For some scripts it is neccessary to download the URLhaus and Malware Bazaar FULL CSV database files.
 
+## Future Work
+
+We want to make a small project which creates new datasets to our current features.
+
 ## BibTeX entry
 Please cite this project using the following bibtex entry: <br>
 [![Generic badge](https://img.shields.io/badge/Peer%20Reviewed-Yes-green.svg)](https://shields.io/)
